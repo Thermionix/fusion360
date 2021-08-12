@@ -1,13 +1,19 @@
 name: fusion360
-version: '0.3'
+version: '0.4'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
+ _Developed by Autodesk_
+
  Features
-   *Parametric Modelling
-   *Program tool paths for CNC machines
-   *3D Rendering
-   *Export STL models for the 3D Printer
+  * Parametric Modelling
+  * Program tool paths for CNC machines
+  * 3D Rendering
+  * Export STL models for the 3D Printer
+
+ **known issues:**
+  * Floating toolbars
+  * Hangs on exit
 
 icon: snap/gui/fusion360.png
 base: core18
