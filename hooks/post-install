@@ -1,0 +1,4 @@
+#!/bin/bash
+
+RUN_EXE="$(find "${WINEPREFIX}" -name "FusionLauncher.exe.ini" | head -1 | xargs -I '{}' echo {} | head -c-5)"
+echo "updated RUN_EXE=${RUN_EXE}"

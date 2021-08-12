@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Autodesk Fusion 360
+Categories=Graphics
+Exec=fusion360
+Icon=${SNAP}/meta/gui/fusion360.png
+Terminal=false
+StartupNotify=true
+StartupWMClass=fusionlauncher.exe
