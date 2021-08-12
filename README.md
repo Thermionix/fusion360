@@ -10,9 +10,12 @@
   
 It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 
+[![fusion360](https://snapcraft.io/fusion360/badge.svg)](https://snapcraft.io/fusion360)
+
+
+
 ## Install
 
-    snap install fusion360
-
+`sudo snap install fusion360`
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
