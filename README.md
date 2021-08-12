@@ -4,9 +4,11 @@
   Autodesk Fusion 360
 </h1>
 
-<p align="center"><b>This is the snap for Fusion 360</b>
-<i>"Fusion 360 is Integrated CAD, CAM, CAE, and PCB software. developed by Autodesk"</i>
-It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.</p>
+<b>This is the snap of Autodesk Fusion 360</b>
+  
+<i>Fusion 360 is Integrated CAD, CAM, CAE, and PCB software. developed by Autodesk</i>
+  
+It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 
 ## Install
 
