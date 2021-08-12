@@ -1,5 +1,5 @@
 name: fusion360
-version: '0.4'
+version: '0.6'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -50,7 +50,11 @@ apps:
     plugs:
     - home
     - opengl
+    - desktop
+    - desktop-legacy
+    - removable-media
     - network
+    - network-bind
     - audio-playback
   wine:
     extensions: [gnome-3-28]
