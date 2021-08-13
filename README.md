@@ -16,6 +16,6 @@ It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 
 ## Install
 
-`sudo snap install fusion360`
+`sudo snap install --beta fusion360 --devmode`
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))

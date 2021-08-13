@@ -1,5 +1,5 @@
 name: fusion360
-version: '0.6'
+version: '0.7'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -18,7 +18,7 @@ description: |
 icon: snap/gui/fusion360.png
 base: core18
 grade: stable
-confinement: strict
+confinement: devmode
 
 architectures:
   - build-on: amd64
@@ -54,8 +54,10 @@ apps:
     - desktop-legacy
     - removable-media
     - network
-    - network-bind
     - audio-playback
+    - wayland
+    - x11
+    - hardware-observe
   wine:
     extensions: [gnome-3-28]
     command: bin/sommelier
