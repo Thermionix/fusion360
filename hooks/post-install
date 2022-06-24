@@ -1,4 +1,5 @@
 #!/bin/bash
 
 RUN_EXE="$(find "${WINEPREFIX}" -name "FusionLauncher.exe.ini" | head -1 | xargs -I '{}' echo {} | head -c-5)"
+# TODO : check if path has changed then update if dir is different
 echo "updated RUN_EXE=${RUN_EXE}"

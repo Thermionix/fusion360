@@ -1,5 +1,5 @@
 name: fusion360
-version: '0.7'
+version: '0.8'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -16,22 +16,12 @@ description: |
   * Hangs on exit
 
 icon: snap/gui/fusion360.png
-base: core18
+base: core20
 grade: stable
 confinement: devmode
 
 architectures:
   - build-on: amd64
-
-plugs:
-  wine-runtime:
-    interface: content
-    target: $SNAP/wine-runtime
-    default-provider: wine-platform-runtime
-  wine-6-staging:
-    interface: content
-    target: $SNAP/wine-platform
-    default-provider: wine-platform-6-staging
 
 environment:
   WINEDLLOVERRIDES: "mscoree,mshtml="
@@ -41,7 +31,7 @@ environment:
 
 apps:
   fusion360:
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-38]
     command: bin/sommelier run-exe
     environment:
       RUN_EXE: "C:/Program Files/Autodesk/webdeploy/production/6a0c9611291d45bb9226980209917c3d/FusionLauncher.exe"
@@ -57,15 +47,16 @@ apps:
     - audio-playback
     - wayland
     - x11
-    - hardware-observe
+
   wine:
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-38]
     command: bin/sommelier
     plugs:
       - home
       - network
+
   winetricks:
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-38]
     command: bin/sommelier winetricks
     plugs:
       - home
@@ -82,5 +73,28 @@ parts:
     
   sommelier:
     plugin: make
-    source: https://github.com/galgalesh/sommelier-core.git
+    source: https://github.com/snapcrafters/sommelier-core.git
     source-branch: "1.0"
+
+  fix-fontconfig:
+    plugin: nil
+    after: [gnome-3-38-extension]
+    override-prime: |
+      sed -i '/snap-package/,+1d' $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
+
+  fix-bindtext:
+    plugin: nil
+    after: [gnome-3-38-extension]
+    override-prime: |
+      sed -i "$(grep -in bindtext $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch | cut -d':' -f1 | tail -2 | head -1)d" $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
+      sed -i "$(grep -in bindtext $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch | cut -d':' -f1 | tail -1)d" $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
+
+plugs:
+  wine-runtime:
+    interface: content
+    target: $SNAP/wine-runtime
+    default-provider: wine-platform-runtime-core20
+  wine-7-stable:
+    interface: content
+    target: $SNAP/wine-platform
+    default-provider: wine-platform-7-stable-core20
