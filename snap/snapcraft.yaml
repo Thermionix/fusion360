@@ -25,7 +25,7 @@ architectures:
 
 environment:
   WINEDLLOVERRIDES: "mscoree,mshtml="
-  TRICKS: "corefonts msxml4 msxml6 vcrun2017 fontsmooth=rgb win10"
+  TRICKS: "corefonts msxml4 msxml6 vcrun2017 dotnet452 fontsmooth=rgb win10" # sandbox dotnet472
   WINEESYNC: 1
   SNAP_SUPPORT_URL: "https://github.com/Thermionix/fusion360/issues"
 
@@ -37,30 +37,17 @@ apps:
       RUN_EXE: "C:/Program Files/Autodesk/webdeploy/production/6a0c9611291d45bb9226980209917c3d/FusionLauncher.exe"
       INSTALL_URL: "https://dl.appstreaming.autodesk.com/production/installers/Fusion%20360%20Admin%20Install.exe"
       INSTALL_FLAGS: "-p deploy -g -f log.txt --quiet"
-    plugs:
-    - home
-    - opengl
-    - desktop
-    - desktop-legacy
-    - removable-media
-    - network
-    - audio-playback
-    - wayland
-    - x11
+    plugs: [home, network, opengl, desktop, x11, audio-playback]
 
   wine:
     extensions: [gnome-3-38]
     command: bin/sommelier
-    plugs:
-      - home
-      - network
+    plugs: [home, network]
 
   winetricks:
     extensions: [gnome-3-38]
     command: bin/sommelier winetricks
-    plugs:
-      - home
-      - network
+    plugs: [home, network]
 
 parts:
   hooks:
@@ -76,25 +63,12 @@ parts:
     source: https://github.com/snapcrafters/sommelier-core.git
     source-branch: "1.0"
 
-  fix-fontconfig:
-    plugin: nil
-    after: [gnome-3-38-extension]
-    override-prime: |
-      sed -i '/snap-package/,+1d' $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
-
-  fix-bindtext:
-    plugin: nil
-    after: [gnome-3-38-extension]
-    override-prime: |
-      sed -i "$(grep -in bindtext $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch | cut -d':' -f1 | tail -2 | head -1)d" $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
-      sed -i "$(grep -in bindtext $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch | cut -d':' -f1 | tail -1)d" $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
-
 plugs:
-  wine-runtime:
+  wine-runtime-c20:
     interface: content
     target: $SNAP/wine-runtime
     default-provider: wine-platform-runtime-core20
-  wine-7-stable:
+  wine-7-staging:
     interface: content
     target: $SNAP/wine-platform
-    default-provider: wine-platform-7-stable-core20
+    default-provider: wine-platform-7-staging-core20

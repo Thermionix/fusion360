@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Writing NMachineSpecificOptions.xml to force OpenGL"
 mkdir -p "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/Autodesk/Neutron Platform/Options" &&
 
 cat > "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/Autodesk/Neutron Platform/Options/NMachineSpecificOptions.xml" << "E"
