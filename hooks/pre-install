@@ -10,3 +10,17 @@ cat > "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/Autodesk/Neutron Platform
  <driverOptionId ToolTip="The driver used to display the graphics" UserName="Graphics driver" Value="VirtualDeviceGLCore"/></BootstrapOptionsGroup>
 </OptionGroups>
 E
+
+# Use 'Fusion 360 Admin Install.exe' in user Downloads folder if present.
+DL_DIR=$(xdg-user-dir DOWNLOAD)
+if [[ -e "${DL_DIR}/Fusion 360 Admin Install.exe" ]]; then
+    echo "Using ${DL_DIR}/Fusion 360 Admin Install.exe for installation"
+    export INSTALL_URL=
+    export INSTALL_EXE="${DL_DIR}/Fusion 360 Admin Install.exe"
+fi
+
+# Temporary hack to fix adsk.dls.streamer.windows.platform - WARNING :: Failed to run ie4uinit -ClearIconCache
+cd "$WINEPREFIX/drive_c/windows/system32/"
+#winebuild --exe -o ie4uinit.exe -m64
+cp icinfo.exe ie4uinit.exe
+
