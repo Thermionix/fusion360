@@ -4,7 +4,7 @@
 # snapcraft
 
 sudo snap remove --purge fusion360
-sudo snap install fusion360_0.8_amd64.snap --dangerous --devmode
+sudo snap install fusion360_0.9_amd64.snap --dangerous --devmode
 
 mkdir -p "${HOME}/snap/fusion360/common/.cache/"
 cp -R "${HOME}/snap/.cache/winetricks/" "${HOME}/snap/fusion360/common/.cache/"

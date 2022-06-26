@@ -1,5 +1,5 @@
 name: fusion360
-version: '0.8'
+version: '0.9'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -48,6 +48,12 @@ apps:
     extensions: [gnome-3-38]
     command: bin/sommelier winetricks
     plugs: [home, network]
+
+  updater:
+    extensions: [gnome-3-38]
+    command: bin/sommelier run-exe
+    environment:
+      RUN_EXE: "C:/Program Files/Autodesk/webdeploy/meta/update.bat"
 
 parts:
   hooks:

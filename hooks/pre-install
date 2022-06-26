@@ -23,4 +23,3 @@ fi
 cd "$WINEPREFIX/drive_c/windows/system32/"
 #winebuild --exe -o ie4uinit.exe -m64
 cp icinfo.exe ie4uinit.exe
-
