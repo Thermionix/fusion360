@@ -19,3 +19,11 @@ It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 `sudo snap install --beta fusion360 --devmode`
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
+
+## Update the snap
+
+`sudo snap refresh fusion360`
+
+## Update Fusion360 within the snap
+
+`fusion360.updater`
