@@ -1,5 +1,5 @@
 name: fusion360
-version: '0.9'
+version: '1.0'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -51,9 +51,11 @@ apps:
 
   updater:
     extensions: [gnome-3-38]
-    command: bin/sommelier run-exe
-    environment:
-      RUN_EXE: "C:/Program Files/Autodesk/webdeploy/meta/update.bat"
+    command: bin/updater
+      
+  dxvk-setup:
+    extensions: [gnome-3-38]
+    command: bin/dxvk-setup
 
 parts:
   hooks:
@@ -68,6 +70,10 @@ parts:
     plugin: make
     source: https://github.com/snapcrafters/sommelier-core.git
     source-branch: "1.0"
+
+  content:
+    source: content
+    plugin: dump
 
   fix-fontconfig:
     plugin: nil

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+BINDIR="$(dirname "$(realpath "$0")")"
+
+source $BINDIR/sommelier winetricks -q dxvk
+
+NMACHINEOPT_DIR="$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/Autodesk/Neutron Platform/Options/"
+NMACHINEOPT_FILE="${NMACHINEOPT_DIR}NMachineSpecificOptions.xml"
+mkdir -p $NMACHINEOPT_DIR
+if [[ -f "$NMACHINEOPT_FILE" ]]; then
+    echo "Setting VirtualDeviceDx9 in $NMACHINEOPT_FILE"
+    cat $NMACHINEOPT_FILE | iconv -f UTF16 -t UTF8 | sed 's/VirtualDeviceGLCore/VirtualDeviceDx9/' | tee $NMACHINEOPT_FILE
+else
+    echo "Writing $NMACHINEOPT_FILE"
+    cat > "$NMACHINEOPT_FILE" << "E"
+<?xml version="1.0" encoding="UTF-16" standalone="no" ?>
+<OptionGroups>
+<BootstrapOptionsGroup SchemaVersion="2" ToolTip="Special preferences that require the application to be restarted after a change." UserName="Bootstrap">
+<driverOptionId ToolTip="The driver used to display the graphics" UserName="Graphics driver" Value="VirtualDeviceDx9"/></BootstrapOptionsGroup>
+</OptionGroups>
+E
+fi
+
+wine reg add 'HKEY_CURRENT_USER\Software\Wine\DllOverrides' /v d3d9 /d builtin /f
+wine reg add 'HKEY_CURRENT_USER\Software\Wine\DllOverrides' /v d3d10core /d "" /f
+wine reg add 'HKEY_CURRENT_USER\Software\Wine\DllOverrides' /v d3d11 /d native /f
+wine reg add 'HKEY_CURRENT_USER\Software\Wine\DllOverrides' /v dxgi /d native /f

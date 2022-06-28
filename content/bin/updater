@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export WINEPREFIX="$SNAP_USER_COMMON/.wine"
+
+STREAMER_DIR="$WINEPREFIX/drive_c/Program Files/Autodesk/webdeploy/meta/streamer"
+
+if [[ ! -d "$STREAMER_DIR" ]]; then
+  echo "Please run fusion360 first!"
+  exit 1
+fi
+
+STREAMER_SUBDIR=$(find "$STREAMER_DIR" -maxdepth 1 -mindepth 1 -type d | sort -gr | head -n1)
+
+BINDIR="$(dirname "$(realpath "$0")")"
+
+$BINDIR/sommelier "$STREAMER_SUBDIR/streamer.exe" --globalinstall --process update --quiet
