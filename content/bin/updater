@@ -11,6 +11,9 @@ fi
 
 STREAMER_SUBDIR=$(find "$STREAMER_DIR" -maxdepth 1 -mindepth 1 -type d | sort -gr | head -n1)
 
-BINDIR="$(dirname "$(realpath "$0")")"
+echo "running: streamer.exe --globalinstall --process update --quiet"
 
-$BINDIR/sommelier "$STREAMER_SUBDIR/streamer.exe" --globalinstall --process update --quiet
+BIN_DIR="$(dirname "$(realpath "$0")")"
+$BIN_DIR/sommelier "$STREAMER_SUBDIR/streamer.exe" --globalinstall --process update --quiet
+
+tail -n 20 "$WINEPREFIX/drive_c/users/$USER/AppData/Local/Autodesk/autodesk.webdeploy.streamer.log"
