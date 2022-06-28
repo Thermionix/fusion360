@@ -27,3 +27,7 @@ It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 ## Update Fusion360 within the snap
 
 `$ fusion360.updater`
+
+## Enable ([DXVK](https://github.com/doitsujin/dxvk)) within the snap
+
+`$ fusion360.dxvk-setup`

@@ -9,7 +9,7 @@ NMACHINEOPT_FILE="${NMACHINEOPT_DIR}NMachineSpecificOptions.xml"
 mkdir -p $NMACHINEOPT_DIR
 if [[ -f "$NMACHINEOPT_FILE" ]]; then
     echo "Setting VirtualDeviceDx9 in $NMACHINEOPT_FILE"
-    cat $NMACHINEOPT_FILE | iconv -f UTF16 -t UTF8 | sed 's/VirtualDeviceGLCore/VirtualDeviceDx9/' | tee $NMACHINEOPT_FILE
+    cat "$NMACHINEOPT_FILE" | iconv -f UTF16 -t UTF8 | sed 's/VirtualDeviceGLCore/VirtualDeviceDx9/' | tee "$NMACHINEOPT_FILE"
 else
     echo "Writing $NMACHINEOPT_FILE"
     cat > "$NMACHINEOPT_FILE" << "E"
