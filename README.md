@@ -28,6 +28,12 @@ It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 
 `$ fusion360.updater`
 
-## Enable [DXVK](https://github.com/doitsujin/dxvk) within the snap
+## Known Issues:
 
-`$ fusion360.dxvk-setup`
+- [DXVK](https://github.com/doitsujin/dxvk) will not currently work [Wine bug# 45277](https://bugs.winehq.org/show_bug.cgi?id=45277)
+>006b:fixme:vulkan:X11DRV_vkCreateWin32SurfaceKHR Application requires child window rendering, which is not implemented yet!
+
+- Fusion360.exe hangs after window being closed
+[Wine bug# 53286](https://bugs.winehq.org/show_bug.cgi?id=53286)
+
+- Floating toolbars
