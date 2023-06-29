@@ -1,5 +1,5 @@
 name: fusion360
-version: '1.1'
+version: '1.2'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -28,6 +28,7 @@ environment:
   TRICKS: "corefonts vcrun2017 fontsmooth=rgb win10" # sandbox dotnet45 dotnet472 dotnet452 msxml4 msxml6
   WINEESYNC: 1
   SNAP_SUPPORT_URL: "https://github.com/Thermionix/fusion360/issues"
+  FUSION_IDSDK: "false"
 
 apps:
   fusion360:
