@@ -1,10 +1,10 @@
 <h1 align="center">
   <img src="snap/gui/fusion360.png" alt="Project">
   <br />
-  Autodesk Fusion 360
+  Autodesk Fusion 360 for Ubuntu
 </h1>
 
-<b>This is the snap of [Autodesk Fusion 360 for Ubuntu](https://www.autodesk.com.au/products/fusion-360/overview)</b>
+<b>This is the snap of [Autodesk Fusion 360](https://www.autodesk.com.au/products/fusion-360/overview)</b>
   
 It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 
