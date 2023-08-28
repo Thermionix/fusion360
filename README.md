@@ -21,3 +21,4 @@ It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 `$ fusion_idsdk=false snap run fusion360`
 
 Ohh yes! You now will be able to see the Login Screen!
+For FusiontoURDF plugins refer https://github.com/syuntoku14/fusion2urdf.git
