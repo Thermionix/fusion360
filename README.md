@@ -22,5 +22,5 @@ It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 
 Ohh yes! You now will be able to see the Login Screen!
 - For FusiontoURDF plugins refer the following
-ROS1: https://github.com/syuntoku14/fusion2urdf.git
-ROS2: https://github.com/kartiksoni01/fusion2urdf-ros2
+- ROS1: https://github.com/syuntoku14/fusion2urdf.git
+- ROS2: https://github.com/kartiksoni01/fusion2urdf-ros2
