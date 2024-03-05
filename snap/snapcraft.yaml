@@ -36,7 +36,7 @@ apps:
     command: bin/sommelier run-exe
     environment:
       RUN_EXE: "C:/Program Files/Autodesk/webdeploy/production/6a0c9611291d45bb9226980209917c3d/FusionLauncher.exe"
-      INSTALL_URL: "https://dl.appstreaming.autodesk.com/production/installers/Fusion%20360%20Admin%20Install.exe"
+      INSTALL_URL: "https://dl.appstreaming.autodesk.com/production/installers/Fusion%20Admin%20Install.exe"
       INSTALL_FLAGS: "--globalinstall --process deploy --quiet --no-auto-launch" #  --logfile log.txt
       FUSION_IDSDK: "false"
     plugs: [home, network, opengl, desktop, x11, audio-playback]
