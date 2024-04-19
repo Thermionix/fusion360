@@ -1,5 +1,5 @@
 name: fusion360
-version: '1.3'
+version: '1.5'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -16,7 +16,7 @@ description: |
   * Hangs on exit
 
 icon: snap/gui/fusion360.png
-base: core20
+base: core22
 grade: stable
 confinement: devmode
 
@@ -25,38 +25,48 @@ architectures:
 
 environment:
   WINEDLLOVERRIDES: "mscoree,mshtml="
-  TRICKS: "corefonts vcrun2017 fontsmooth=rgb win10" # sandbox dotnet45 dotnet472 dotnet452 msxml4 msxml6
+  TRICKS: "corefonts vcrun2017 fontsmooth=rgb win7" # sandbox dotnet45 dotnet452 msxml4 msxml6 dotnet472
   WINEESYNC: 1
   SNAP_SUPPORT_URL: "https://github.com/Thermionix/fusion360/issues"
-  FUSION_IDSDK: "false"
+  #FUSION_IDSDK: "false"
 
 apps:
+  webview2:
+    extensions: [gnome]
+    command: bin/sommelier run-exe
+    environment:
+      INSTALL_EXE: "$SNAP/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+      #INSTALL_URL: "https://github.com/aedancullen/webview2-evergreen-standalone-installer-archive/releases/download/109.0.1518.78/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+      INSTALL_FLAGS: " /silent /install"
+
   fusion360:
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     command: bin/sommelier run-exe
     environment:
       RUN_EXE: "C:/Program Files/Autodesk/webdeploy/production/6a0c9611291d45bb9226980209917c3d/FusionLauncher.exe"
-      INSTALL_URL: "https://dl.appstreaming.autodesk.com/production/installers/Fusion%20Admin%20Install.exe"
+      INSTALL_EXE: "$SNAP/Fusion Admin Install.exe"
+      #INSTALL_URL: "https://dl.appstreaming.autodesk.com/production/installers/Fusion%20Admin%20Install.exe"
       INSTALL_FLAGS: "--globalinstall --process deploy --quiet --no-auto-launch" #  --logfile log.txt
-      FUSION_IDSDK: "false"
     plugs: [home, network, opengl, desktop, x11, audio-playback]
 
   wine:
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     command: bin/sommelier
     plugs: [home, network]
 
   winetricks:
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     command: bin/sommelier winetricks
-    plugs: [home, network]
+    plugs:
+        - home
+        - network
 
   updater:
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     command: bin/updater
-      
+
   dxvk-setup:
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     command: bin/dxvk-setup
 
 parts:
@@ -68,34 +78,24 @@ parts:
     stage:
       - sommelier
     
-  sommelier:
+  sommelier-core:
     plugin: make
     source: https://github.com/snapcrafters/sommelier-core.git
     source-branch: "1.0"
+    override-build: |
+        apt-get -y install sudo
+        snapcraftctl build
 
   content:
     source: content
     plugin: dump
 
-  fix-fontconfig:
-    plugin: nil
-    after: [gnome-3-38-extension]
-    override-prime: |
-      sed -i '/snap-package/,+1d' $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
-
-  fix-bindtext:
-    plugin: nil
-    after: [gnome-3-38-extension]
-    override-prime: |
-      sed -i "$(grep -in bindtext $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch | cut -d':' -f1 | tail -2 | head -1)d" $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
-      sed -i "$(grep -in bindtext $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch | cut -d':' -f1 | tail -1)d" $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
-
 plugs:
-  wine-runtime-c20:
-    interface: content
-    target: $SNAP/wine-runtime
-    default-provider: wine-platform-runtime-core20
-  wine-7-staging:
-    interface: content
-    target: $SNAP/wine-platform
-    default-provider: wine-platform-7-staging-core20
+    wine-runtime-core22:
+        interface: content
+        target: $SNAP/wine-runtime
+        default-provider: wine-platform-runtime-core22
+    wine-9-staging-core22:
+        interface: content
+        target: $SNAP/wine-platform
+        default-provider: wine-platform-9-staging-core22
