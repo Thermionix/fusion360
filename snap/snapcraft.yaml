@@ -32,22 +32,12 @@ environment:
   #FUSION_IDSDK: "false"
 
 apps:
-  webview2:
-    extensions: [gnome]
-    command: bin/sommelier run-exe
-    environment:
-      INSTALL_EXE: "$SNAP/MicrosoftEdgeWebView2RuntimeInstallerX64_v124.exe"
-      #v109 INSTALL_URL: "https://github.com/aedancullen/webview2-evergreen-standalone-installer-archive/releases/download/109.0.1518.78/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
-      #v124 INSTALL_URL: "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/b41cf22e-bb47-420c-989b-a04b2702e36e/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
-      INSTALL_FLAGS: "/silent /install"
-
   fusion360:
     extensions: [gnome]
     command: bin/sommelier run-exe
     environment:
       RUN_EXE: "C:/Program Files/Autodesk/webdeploy/production/6a0c9611291d45bb9226980209917c3d/FusionLauncher.exe"
-      INSTALL_EXE: "$SNAP/Fusion Admin Install.exe"
-      #INSTALL_URL: "https://dl.appstreaming.autodesk.com/production/installers/Fusion%20Admin%20Install.exe"
+      INSTALL_URL: "https://dl.appstreaming.autodesk.com/production/installers/Fusion%20Admin%20Install.exe"
       INSTALL_FLAGS: "--globalinstall --process deploy --quiet --no-auto-launch"
     plugs: [home, network, opengl, desktop, x11, audio-playback]
 

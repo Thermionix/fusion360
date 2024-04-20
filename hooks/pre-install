@@ -2,7 +2,7 @@
 
 NMACHINEOPT_DIR="$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/Autodesk/Neutron Platform/Options/"
 NMACHINEOPT_FILE="${NMACHINEOPT_DIR}NMachineSpecificOptions.xml"
-echo "Writing NMachineSpecificOptions.xml to force OpenGL"
+echo "### Writing NMachineSpecificOptions.xml to force OpenGL"
 mkdir -p "$NMACHINEOPT_DIR"
 cat > "$NMACHINEOPT_FILE" << "E"
 <?xml version="1.0" encoding="UTF-16" standalone="no" ?>
@@ -12,15 +12,30 @@ cat > "$NMACHINEOPT_FILE" << "E"
 </OptionGroups>
 E
 
-# Use 'Fusion 360 Admin Install.exe' in user Downloads folder if present.
+# Use 'Fusion Admin Install.exe' in user Downloads folder if present.
 DL_DIR=$(xdg-user-dir DOWNLOAD)
-if [[ -e "${DL_DIR}/Fusion 360 Admin Install.exe" ]]; then
-    echo "Using ${DL_DIR}/Fusion 360 Admin Install.exe for installation"
+if [[ -e "${DL_DIR}/Fusion Admin Install.exe" ]]; then
+    echo "### Using ${DL_DIR}/Fusion Admin Install.exe for installation"
     export INSTALL_URL=
-    export INSTALL_EXE="${DL_DIR}/Fusion 360 Admin Install.exe"
+    export INSTALL_EXE="${DL_DIR}/Fusion Admin Install.exe"
 fi
 
 # Temporary hack to fix adsk.dls.streamer.windows.platform - WARNING :: Failed to run ie4uinit -ClearIconCache
 cd "$WINEPREFIX/drive_c/windows/system32/"
 #winebuild --exe -o ie4uinit.exe -m64
 cp icinfo.exe ie4uinit.exe
+
+# V109 "https://github.com/aedancullen/webview2-evergreen-standalone-installer-archive/releases/download/109.0.1518.78/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+EDGE_URL="https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/b41cf22e-bb47-420c-989b-a04b2702e36e/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+
+# TODO : Eventually refactor to use exe if in user dl folder, else dl to /tmp for auto purge
+echo "### Setting up Microsoft EdgeWebView2 for Fusion 360 Login Prompt"
+if ! [[ -e "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" ]]; then
+ echo "### Downloading MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+ wget -O "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" "$EDGE_URL"
+fi
+
+if [[ -e "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" ]]; then
+ echo "### Running MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+ wine "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" /silent /install
+fi

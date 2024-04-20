@@ -14,50 +14,43 @@
 # wine-platform repo list
 # https://github.com/mmtrt?tab=repositories&q=wine-platform&type=&language=&sort=
 
-# for local builds
+# for local repeated build testing
 # download MicrosoftEdgeWebView2RuntimeInstallerX64.exe & Fusion Admin Install.exe
-# place in /content/ folder to be included by snapcraft
+# place in users ~/Download/ folder to be used by pre-install hook
 
+echo "### cleaning build content"
 rm fusion360_1.5_amd64.snap
-
-# clean build content
 snapcraft clean content
 
-# build snap
+echo "### building snap"
 snapcraft --verbose
 
-# purge old install
+echo "### purge old snap"
 sudo snap remove --purge fusion360
-# install the snap
+
+echo "### installing snap"
 sudo snap install fusion360_1.5_amd64.snap --dangerous --devmode
 
-# check connections
-snap connections fusion360
-
-# fix connections
+echo "### fixing snap connections"
 sudo snap connect fusion360:wine-9-staging-c22 wine-platform-9-staging-core22
 sudo snap connect fusion360:wine-runtime-c22 wine-platform-runtime-core22
+snap connections fusion360
 
-# copy winetricks cache from /snap/winetricks to prevent downloading everytime
+echo "### copying winetricks cache from /snap/winetricks"
 mkdir -p "${HOME}/snap/fusion360/common/.cache/" &&
 cp -R "${HOME}/snap/winetricks/" "${HOME}/snap/fusion360/common/.cache/"
 
-# enable wine debugging output
+echo "### enabling wine debugging output"
 export WINEDEBUG=err+all
+export SOMMELIER_DEBUG=1
 
-# run fusion360 installer
+echo "### running fusion360 installer"
 fusion360
 
-# check EdgeWebView2 installer log
-cat ${HOME}/snap/fusion360/common/.wine/drive_c/ProgramData/Microsoft/EdgeUpdate/Log/MicrosoftEdgeUpdate.log
-
-# check fusion installer log
+echo "### check fusion installer log"
 cat ${HOME}/snap/fusion360/common/.wine/drive_c/users/`whoami`/AppData/Local/Autodesk/autodesk.webdeploy.streamer.log
 
 #export XDG_CACHE_HOME="/tmp/.cache"
-
-#export SOMMELIER_DEBUG=1 
-#export WINEDEBUG=err+all
 
 # snap run --shell fusion360 -c 'env' | grep XDG
 # fusion360.dxvk-setup

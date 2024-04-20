@@ -1,4 +1,7 @@
 #!/bin/bash
 
 RUN_EXE="$(find "${WINEPREFIX}" -name "FusionLauncher.exe.ini" | head -1 | xargs -I '{}' echo {} | head -c-5)"
-echo "updated RUN_EXE=${RUN_EXE}"
+echo "Updated SNAP RUN_EXE=${RUN_EXE}"
+
+echo "If you suspect an installation issue, please check:"
+echo "${HOME}/snap/fusion360/common/.wine/drive_c/users/`whoami`/AppData/Local/Autodesk/autodesk.webdeploy.streamer.log"
