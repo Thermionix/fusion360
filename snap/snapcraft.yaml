@@ -24,11 +24,12 @@ architectures:
   - build-on: amd64
 
 environment:
-  WINEDLLOVERRIDES: "mscoree,mshtml="
-  TRICKS: "fontsmooth=rgb" # sandbox dotnet45 dotnet452 msxml4 msxml6 dotnet472 winhttp win7 win10 corefonts vcrun2017
+  WINEDLLOVERRIDES: "mscoree,mshtml=" # disable wine-mono and wine-gecko
+  TRICKS: "arial fontsmooth=rgb win11" # sandbox dotnet45 dotnet452 msxml4 msxml6 dotnet472 winhttp win7 win10 corefonts vcrun2017
   WINEESYNC: 1
   SOMMELIER_NO_THEME: 1
   SNAP_SUPPORT_URL: "https://github.com/Thermionix/fusion360/issues"
+  #WINEDEBUG: -all
   #FUSION_IDSDK: "false"
 
 apps:
@@ -38,7 +39,7 @@ apps:
     environment:
       RUN_EXE: "C:/Program Files/Autodesk/webdeploy/production/6a0c9611291d45bb9226980209917c3d/FusionLauncher.exe"
       INSTALL_URL: "https://dl.appstreaming.autodesk.com/production/installers/Fusion%20Admin%20Install.exe"
-      INSTALL_FLAGS: "--globalinstall --process deploy --quiet --no-auto-launch"
+      INSTALL_FLAGS: "--globalinstall --process deploy --quiet --no-auto-launch" # --verbosity DEBUG
     plugs: [home, network, opengl, desktop, x11, audio-playback]
 
   wine:
@@ -82,11 +83,11 @@ parts:
     plugin: dump
 
 plugs:
-    wine-runtime-c22:
+    wine-platform-runtime-core22:
         interface: content
         target: $SNAP/wine-runtime
         default-provider: wine-platform-runtime-core22
-    wine-9-staging-c22:
+    wine-platform-9-staging-core22:
         interface: content
         target: $SNAP/wine-platform
         default-provider: wine-platform-9-staging-core22

@@ -2,13 +2,13 @@
 
 NMACHINEOPT_DIR="$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/Autodesk/Neutron Platform/Options/"
 NMACHINEOPT_FILE="${NMACHINEOPT_DIR}NMachineSpecificOptions.xml"
-echo "### Writing NMachineSpecificOptions.xml to force OpenGL"
+echo "### Writing NMachineSpecificOptions.xml to force Dx9" # OpenGL : VirtualDeviceGLCore , Dx9 : VirtualDeviceDx9
 mkdir -p "$NMACHINEOPT_DIR"
 cat > "$NMACHINEOPT_FILE" << "E"
 <?xml version="1.0" encoding="UTF-16" standalone="no" ?>
 <OptionGroups>
 <BootstrapOptionsGroup SchemaVersion="2" ToolTip="Special preferences that require the application to be restarted after a change." UserName="Bootstrap">
- <driverOptionId ToolTip="The driver used to display the graphics" UserName="Graphics driver" Value="VirtualDeviceGLCore"/></BootstrapOptionsGroup>
+ <driverOptionId ToolTip="The driver used to display the graphics" UserName="Graphics driver" Value="VirtualDeviceDx9"/></BootstrapOptionsGroup>
 </OptionGroups>
 E
 
@@ -20,22 +20,31 @@ if [[ -e "${DL_DIR}/Fusion Admin Install.exe" ]]; then
     export INSTALL_EXE="${DL_DIR}/Fusion Admin Install.exe"
 fi
 
-# Temporary hack to fix adsk.dls.streamer.windows.platform - WARNING :: Failed to run ie4uinit -ClearIconCache
+# Temporary fix adsk.dls.streamer.windows.platform - WARNING :: Failed to run ie4uinit -ClearIconCache
 cd "$WINEPREFIX/drive_c/windows/system32/"
-#winebuild --exe -o ie4uinit.exe -m64
 cp icinfo.exe ie4uinit.exe
 
 # V109 "https://github.com/aedancullen/webview2-evergreen-standalone-installer-archive/releases/download/109.0.1518.78/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
-EDGE_URL="https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/b41cf22e-bb47-420c-989b-a04b2702e36e/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+WEBVIEW_URL="https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/b41cf22e-bb47-420c-989b-a04b2702e36e/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
 
 # TODO : Eventually refactor to use exe if in user dl folder, else dl to /tmp for auto purge
 echo "### Setting up Microsoft EdgeWebView2 for Fusion 360 Login Prompt"
 if ! [[ -e "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" ]]; then
- echo "### Downloading MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
- wget -O "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" "$EDGE_URL"
+    echo "### Downloading MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+    wget -O "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" "$WEBVIEW_URL"
 fi
 
 if [[ -e "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" ]]; then
- echo "### Running MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
- wine "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" /silent /install
+    echo "### Running MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+    wine "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" /silent /install
 fi
+
+echo "### Removing tracking metrics"
+wine REG ADD "HKCU\Software\Wine\DllOverrides" /v "adpclientservice.exe" /t REG_SZ /d "" /f
+wine REG ADD "HKCU\Software\Wine\DllOverrides" /v "AdCefWebBrowser.exe" /t REG_SZ /d builtin /f
+
+echo "## Using bundled Visual Studio Redist"
+wine REG ADD "HKCU\Software\Wine\DllOverrides" /v "msvcp140" /t REG_SZ /d native /f
+wine REG ADD "HKCU\Software\Wine\DllOverrides" /v "mfc140u" /t REG_SZ /d native /f
+
+mkdir -p "$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/Microsoft/Internet Explorer/Quick Launch/User Pinned/"

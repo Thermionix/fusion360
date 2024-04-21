@@ -32,23 +32,24 @@ echo "### installing snap"
 sudo snap install fusion360_1.5_amd64.snap --dangerous --devmode
 
 echo "### fixing snap connections"
-sudo snap connect fusion360:wine-9-staging-c22 wine-platform-9-staging-core22
-sudo snap connect fusion360:wine-runtime-c22 wine-platform-runtime-core22
+sudo snap connect fusion360:wine-platform-9-staging-core22 wine-platform-9-staging-core22
+sudo snap connect fusion360:wine-platform-runtime-core22 wine-platform-runtime-core22
 snap connections fusion360
 
 echo "### copying winetricks cache from /snap/winetricks"
 mkdir -p "${HOME}/snap/fusion360/common/.cache/" &&
 cp -R "${HOME}/snap/winetricks/" "${HOME}/snap/fusion360/common/.cache/"
 
-echo "### enabling wine debugging output"
-export WINEDEBUG=err+all
-export SOMMELIER_DEBUG=1
+#echo "### enabling wine debugging output"
+#export WINEDEBUG=err+all
+#export SOMMELIER_DEBUG=1
+#export WINEDEBUG=-all
 
 echo "### running fusion360 installer"
 fusion360
 
-echo "### check fusion installer log"
-cat ${HOME}/snap/fusion360/common/.wine/drive_c/users/`whoami`/AppData/Local/Autodesk/autodesk.webdeploy.streamer.log
+#echo "### check fusion installer log"
+#cat ${HOME}/snap/fusion360/common/.wine/drive_c/users/`whoami`/AppData/Local/Autodesk/autodesk.webdeploy.streamer.log
 
 #export XDG_CACHE_HOME="/tmp/.cache"
 
@@ -57,3 +58,4 @@ cat ${HOME}/snap/fusion360/common/.wine/drive_c/users/`whoami`/AppData/Local/Aut
 # fusion360.updater
 # fusion360.wine uninstaller
 # fusion360.wine --version
+# fusion360.wine regedit
