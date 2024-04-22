@@ -8,3 +8,18 @@ echo "### Updated SNAP RUN_EXE=${RUN_EXE}"
 
 # disable winedebug output in shortcut to reduce CPU overhead
 # sed -i 's/=env WINEPREFIX=/=env WINEDEBUG=-all env WINEPREFIX=/g' "$HOME/.local/share/applications/wine/Programs/Autodesk/Autodesk Fusion.desktop"
+
+
+echo "### Creating mimetype link to handle login callback to Identity Manager"
+
+IDENTITY_EXE="$(find "${WINEPREFIX}" -name "AdskIdentityManager.exe" | head -1 | xargs -I '{}' echo {})"
+
+cat > $HOME/.local/share/applications/adskidmgr-opener.desktop << EOL
+[Desktop Entry]
+Type=Application
+Name=adskidmgr Scheme Handler
+Exec=fusion360.wine "${IDENTITY_EXE}" %u
+StartupNotify=false
+MimeType=x-scheme-handler/adskidmgr;
+EOL
+xdg-mime default adskidmgr-opener.desktop x-scheme-handler/adskidmgr
