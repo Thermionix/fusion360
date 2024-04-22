@@ -12,13 +12,11 @@ echo "### Updated SNAP RUN_EXE=${RUN_EXE}"
 
 echo "### Creating mimetype link to handle login callback to Identity Manager"
 
-IDENTITY_EXE="$(find "${WINEPREFIX}" -name "AdskIdentityManager.exe" | head -1 | xargs -I '{}' echo {})"
-
 cat > $HOME/.local/share/applications/adskidmgr-opener.desktop << EOL
 [Desktop Entry]
 Type=Application
 Name=adskidmgr Scheme Handler
-Exec=fusion360.wine "${IDENTITY_EXE}" %u
+Exec=sh -c 'fusion360.wine "\$(find ${WINEPREFIX} -name "AdskIdentityManager.exe" | head -1 | xargs -I '{}' echo {})" "%u"'
 StartupNotify=false
 MimeType=x-scheme-handler/adskidmgr;
 EOL
