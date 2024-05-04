@@ -2,13 +2,13 @@
 
 NMACHINEOPT_DIR="$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/Autodesk/Neutron Platform/Options/"
 NMACHINEOPT_FILE="${NMACHINEOPT_DIR}NMachineSpecificOptions.xml"
-echo "### Writing NMachineSpecificOptions.xml to force Dx9" # OpenGL : VirtualDeviceGLCore , Dx9 : VirtualDeviceDx9
+echo "### Writing NMachineSpecificOptions.xml to force OpenGL" # OpenGL : VirtualDeviceGLCore , Dx9 : VirtualDeviceDx9
 mkdir -p "$NMACHINEOPT_DIR"
 cat > "$NMACHINEOPT_FILE" << "E"
 <?xml version="1.0" encoding="UTF-16" standalone="no" ?>
 <OptionGroups>
 <BootstrapOptionsGroup SchemaVersion="2" ToolTip="Special preferences that require the application to be restarted after a change." UserName="Bootstrap">
- <driverOptionId ToolTip="The driver used to display the graphics" UserName="Graphics driver" Value="VirtualDeviceDx9"/></BootstrapOptionsGroup>
+ <driverOptionId ToolTip="The driver used to display the graphics" UserName="Graphics driver" Value="VirtualDeviceGLCore"/></BootstrapOptionsGroup>
 </OptionGroups>
 E
 

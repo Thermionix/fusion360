@@ -1,5 +1,5 @@
 name: fusion360
-version: '1.5'
+version: '1.6'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -87,7 +87,7 @@ plugs:
         interface: content
         target: $SNAP/wine-runtime
         default-provider: wine-platform-runtime-core22
-    wine-platform-9-staging-core22:
+    wine-platform-9-devel-core22:
         interface: content
         target: $SNAP/wine-platform
-        default-provider: wine-platform-9-staging-core22
+        default-provider: wine-platform-9-devel-core22
