@@ -4,8 +4,6 @@
   Autodesk Fusion 360
 </h1>
 
-## NOTE: Installer is [currently failing](https://github.com/cryinkfly/Autodesk-Fusion-360-for-Linux/issues/408) - [merge request to winehq](https://gitlab.winehq.org/wine/wine/-/merge_requests/5525)
-
 <b>This is the snap of [Autodesk Fusion 360](https://www.autodesk.com.au/products/fusion-360/overview)</b>
   
 <i>Fusion 360 is Integrated CAD, CAM, CAE, and PCB software. developed by Autodesk</i>
