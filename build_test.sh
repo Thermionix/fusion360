@@ -32,7 +32,7 @@ echo "### installing snap"
 sudo snap install fusion360_*_amd64.snap --dangerous --devmode
 
 echo "### fixing snap connections"
-sudo snap connect fusion360:wine-9-devel-core22 wine-platform-9-devel-core22
+sudo snap connect fusion360:wine-9-devel wine-platform-9-devel-core22
 sudo snap connect fusion360:wine-runtime-c22 wine-platform-runtime-core22
 
 snap connections fusion360
