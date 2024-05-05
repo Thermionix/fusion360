@@ -1,5 +1,5 @@
 name: fusion360
-version: '1.6'
+version: '1.8'
 title: Autodesk Fusion 360 (Wine)
 summary: Integrated CAD, CAM, CAE, and PCB software.
 description: |
@@ -30,7 +30,6 @@ environment:
   SOMMELIER_NO_THEME: 1
   SNAP_SUPPORT_URL: "https://github.com/Thermionix/fusion360/issues"
   #WINEDEBUG: -all
-  #FUSION_IDSDK: "false"
 
 apps:
   fusion360:
@@ -86,8 +85,10 @@ plugs:
     wine-platform-runtime-core22:
         interface: content
         target: $SNAP/wine-runtime
+        #content: wine-runtime-c22
         default-provider: wine-platform-runtime-core22
     wine-platform-9-devel-core22:
         interface: content
         target: $SNAP/wine-platform
+        content: wine-9-devel-core22
         default-provider: wine-platform-9-devel-core22

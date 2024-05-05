@@ -19,7 +19,7 @@
 # place in users ~/Download/ folder to be used by pre-install hook
 
 echo "### cleaning build content"
-rm fusion360_1.5_amd64.snap
+rm fusion360_*_amd64.snap
 snapcraft clean content
 
 echo "### building snap"
@@ -29,11 +29,12 @@ echo "### purge old snap"
 sudo snap remove --purge fusion360
 
 echo "### installing snap"
-sudo snap install fusion360_1.5_amd64.snap --dangerous --devmode
+sudo snap install fusion360_*_amd64.snap --dangerous --devmode
 
 echo "### fixing snap connections"
 sudo snap connect fusion360:wine-platform-9-devel-core22 wine-platform-9-devel-core22
 sudo snap connect fusion360:wine-platform-runtime-core22 wine-platform-runtime-core22
+
 snap connections fusion360
 
 echo "### copying winetricks cache from /snap/winetricks"

@@ -21,14 +21,14 @@ if [[ -e "${DL_DIR}/Fusion Admin Install.exe" ]]; then
 fi
 
 # Temporary fix adsk.dls.streamer.windows.platform - WARNING :: Failed to run ie4uinit -ClearIconCache
-cd "$WINEPREFIX/drive_c/windows/system32/"
-cp icinfo.exe ie4uinit.exe
+#cd "$WINEPREFIX/drive_c/windows/system32/"
+#cp icinfo.exe ie4uinit.exe
 
 # V109 "https://github.com/aedancullen/webview2-evergreen-standalone-installer-archive/releases/download/109.0.1518.78/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
 WEBVIEW_URL="https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/b41cf22e-bb47-420c-989b-a04b2702e36e/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
 
 # TODO : Eventually refactor to use exe if in user dl folder, else dl to /tmp for auto purge
-echo "### Setting up Microsoft EdgeWebView2 for Fusion 360 Login Prompt"
+echo "### Setting up Microsoft EdgeWebView2 for Fusion 360 Login Prompt" # /silent /install
 if ! [[ -e "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" ]]; then
     echo "### Downloading MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
     wget -O "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" "$WEBVIEW_URL"
@@ -36,7 +36,7 @@ fi
 
 if [[ -e "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" ]]; then
     echo "### Running MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
-    wine "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" /silent /install
+    wine "${DL_DIR}/MicrosoftEdgeWebView2RuntimeInstallerX64.exe" /install
 fi
 
 echo "### Removing tracking metrics"
