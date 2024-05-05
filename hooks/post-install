@@ -16,4 +16,14 @@ Exec=sh -c 'fusion360.wine "\$(find ${WINEPREFIX} -name "AdskIdentityManager.exe
 StartupNotify=false
 MimeType=x-scheme-handler/adskidmgr;
 EOL
+
 xdg-mime default adskidmgr-opener.desktop x-scheme-handler/adskidmgr
+update-desktop-database ~/.local/share/applications/
+update-mime-database ~/.local/share/mime/
+
+# TODO : Eventually remove this in future as ~/.local/share/applications/mimeapps.list is deprecated
+# Firefox is still reading: https://bugzilla.mozilla.org/show_bug.cgi?id=1580686
+ln -s ~/.config/mimeapps.list ~/.local/share/applications/mimeapps.list
+
+#echo "### Check default adskidmgr scheme-handler = adskidmgr-opener.desktop"
+#XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query default x-scheme-handler/adskidmgr

@@ -25,6 +25,7 @@ fi
 #cp icinfo.exe ie4uinit.exe
 
 # V109 "https://github.com/aedancullen/webview2-evergreen-standalone-installer-archive/releases/download/109.0.1518.78/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+# TODO : Find a better way to get the link from MS
 WEBVIEW_URL="https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/b41cf22e-bb47-420c-989b-a04b2702e36e/MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
 
 # TODO : Eventually refactor to use exe if in user dl folder, else dl to /tmp for auto purge
