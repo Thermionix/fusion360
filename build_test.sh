@@ -35,6 +35,9 @@ echo "### fixing snap connections"
 sudo snap connect fusion360:wine-9-devel wine-platform-9-devel-core22
 sudo snap connect fusion360:wine-runtime-c22 wine-platform-runtime-core22
 
+#snap known snap-declaration snap-name=wine-platform-runtime-core22
+#snap known snap-declaration snap-name=wine-platform-9-devel-core22
+
 snap connections fusion360
 
 echo "### copying winetricks cache from /snap/winetricks"
