@@ -82,13 +82,13 @@ parts:
     plugin: dump
 
 plugs:
-    wine-runtime-c22:
+    wine-platform-runtime-core22:
         interface: content
         target: $SNAP/wine-runtime
         #content: wine-runtime-c22
         default-provider: wine-platform-runtime-core22
-    wine-9-devel:
+    wine-platform-9-devel-core22:
         interface: content
         target: $SNAP/wine-platform
-        #content: wine-9-devel-core22
+        #content: wine-9-devel-core22 wine-9-devel
         default-provider: wine-platform-9-devel-core22
