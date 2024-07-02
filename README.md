@@ -17,9 +17,9 @@ It works on Arch, Ubuntu, Fedora, Debian, and other major Linux distributions.
 ## Install
 
 ````
-$ sudo snap install --edge fusion360 --devmode
-sudo snap connect fusion360:wine-9-devel wine-platform-9-devel-core22
-sudo snap connect fusion360:wine-runtime-c22 wine-platform-runtime-core22
+$ sudo snap install --edge fusion360 --devmode &&
+sudo snap connect fusion360:wine-9-devel wine-platform-9-devel-core22 &&
+sudo snap connect fusion360:wine-runtime-c22 wine-platform-runtime-core22 &&
 fusion360
 ````
 
